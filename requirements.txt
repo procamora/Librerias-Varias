@@ -1,0 +1,6 @@
+#https://github.com/bndr/pipreqs
+#pipreqs .
+mailer
+pymysql
+sshtunnel
+paramiko

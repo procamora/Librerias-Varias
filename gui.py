@@ -153,13 +153,13 @@ if runningPython3:
     import tkinter.filedialog as tk_FileDialog
     from io import StringIO
 else:
-    from Tkinter import *
-    import tkFileDialog as tk_FileDialog
-    from StringIO import StringIO
+    from tkinter import *
+    import tkinter.filedialog as tk_FileDialog
+    from io import StringIO
 
 # Set up basestring appropriately
 if runningPython3:
-    basestring = str
+    str = str
 
 def write(*args):
     args = [str(arg) for arg in args]
@@ -392,7 +392,7 @@ def msgbox(msg="(Your message goes here)"
     :param tk_widget root: Top-level Tk widget
     :return: the text of the ok_button
     """
-    if not isinstance(ok_button, basestring):
+    if not isinstance(ok_button, str):
         raise AssertionError("The 'ok_button' argument to msgbox must be a string.")
 
     return buttonbox(msg=msg,
@@ -1580,7 +1580,7 @@ def textbox(msg=""
     # ----------------- the action begins ----------------------------------------
     try:
         # load the text into the textArea
-        if isinstance(text, basestring):
+        if isinstance(text, str):
             pass
         else:
             try:
@@ -1683,7 +1683,7 @@ class FileTypeObject:
 
         self.masks = list()
 
-        if isinstance(filemask, basestring):  # a str or unicode
+        if isinstance(filemask, str):  # a str or unicode
             self.initializeFromString(filemask)
 
         elif isinstance(filemask, list):
@@ -2027,7 +2027,7 @@ def __buttonEvent(event=None, buttons=None, virtual_event=None):
 
     # print('{0}:{1}:{2}'.format(event, buttons, virtual_event))
     if virtual_event == 'cancel':
-        for button_name, button in buttons.items():
+        for button_name, button in list(buttons.items()):
             if 'cancel_choice' in button:
                 __replyButtonText = button['original_text']
         __replyButtonText = None
@@ -2036,9 +2036,9 @@ def __buttonEvent(event=None, buttons=None, virtual_event=None):
 
     if virtual_event == 'select':
         text = event.widget.config('text')[-1]
-        if not isinstance(text, basestring):
+        if not isinstance(text, str):
             text = ' '.join(text)
-        for button_name, button in buttons.items():
+        for button_name, button in list(buttons.items()):
             if button['clean_text'] == text:
                 __replyButtonText = button['original_text']
                 boxRoot.quit()
@@ -2046,7 +2046,7 @@ def __buttonEvent(event=None, buttons=None, virtual_event=None):
 
     # Hotkeys
     if buttons:
-        for button_name, button in buttons.items():
+        for button_name, button in list(buttons.items()):
             hotkey_pressed = event.keysym
             if event.keysym != event.char: # A special character
                 hotkey_pressed = '<{}>'.format(event.keysym)
@@ -2080,7 +2080,7 @@ def __put_buttons_in_buttonframe(choices, default_choice, cancel_choice):
         this_button['widget'].pack(expand=YES, side=LEFT, padx='1m', pady='1m', ipadx='2m', ipady='1m')
         buttons[unique_button_text] = this_button
     # Bind arrows, Enter, Escape
-    for this_button in buttons.values():
+    for this_button in list(buttons.values()):
         bindArrows(this_button['widget'])
         for selectionEvent in STANDARD_SELECTION_EVENTS:
             this_button['widget'].bind("<{}>".format(selectionEvent),
@@ -2096,7 +2096,7 @@ def __put_buttons_in_buttonframe(choices, default_choice, cancel_choice):
         buttons[default_choice]['default_choice'] = True
         buttons[default_choice]['widget'].focus_force()
     # Bind hotkeys
-    for hk in [button['hotkey'] for button in buttons.values() if button['hotkey']]:
+    for hk in [button['hotkey'] for button in list(buttons.values()) if button['hotkey']]:
          boxRoot.bind_all(hk, lambda e: __buttonEvent(e, buttons), add=True)
 
     return
@@ -2232,7 +2232,7 @@ of user settings for an EasyGui application.
         # find the length of the longest attribute name
         longest_key_length = 0
         keys = list()
-        for key in self.__dict__.keys():
+        for key in list(self.__dict__.keys()):
             keys.append(key)
             longest_key_length = max(longest_key_length, len(key))
 
@@ -2527,7 +2527,7 @@ def _demo_buttonbox_with_image():
 def _demo_help():
     savedStdout = sys.stdout  # save the sys.stdout file object
     sys.stdout = capturedOutput = StringIO()
-    print(globals()['__doc__'])  #help("easygui")
+    print((globals()['__doc__']))  #help("easygui")
     sys.stdout = savedStdout  # restore the sys.stdout file object
     codebox("EasyGui Help", text=capturedOutput.getvalue())
 

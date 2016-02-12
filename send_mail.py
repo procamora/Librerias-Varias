@@ -1,9 +1,10 @@
-#!/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 import smtplib 
 
 
-def EnviarCorreo(destinatarios, asunto, mensaje):
+def enviarCorreo(destinatarios, asunto, mensaje):
 	"""
 	Envia un correo al remitente deseado, el smtp es localhost, seria ineteresante cambiar eso y poder hacerlo desde cualquier cuenta
 	
@@ -27,20 +28,16 @@ Subject: %s
 
 		smtp = smtplib.SMTP('localhost') 
 		smtp.sendmail(remitente, destinatario, email)
-	#acaba el for del tupla
-	
-	
-	#print remitente, destinatario, email
-	#print "Correo enviado" 
 
 	#cerramos el servidor
 	smtp.close()
 
-'''
-destinatario = "Pablo <$USERNAME@github.es>" 
-asunto = "E-mail HTML enviado desde Python" 
-mensaje = """Hola!<br/> <br/> 
-Este es un <b>e-mail</b> enviando desde <b>Python</b> 
-"""
-EnviarCorreo(destinatario, asunto, mensaje)
-'''
+
+if __name__ == '__main__':
+	destinatario = "Pablo <$USERNAME@github.es>" 
+	asunto = "E-mail HTML enviado desde Python" 
+	mensaje = """Hola!<br/> <br/> 
+	Este es un <b>e-mail</b> enviando desde <b>Python</b> 
+	"""
+	enviarCorreo(destinatario, asunto, mensaje)
+

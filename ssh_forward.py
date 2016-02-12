@@ -1,5 +1,7 @@
-#!/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
+
 from sshtunnel import SSHTunnelForwarder 				#https://github.com/pahaz/sshtunnel
 
 class TunelSSH():
@@ -13,3 +15,7 @@ class TunelSSH():
 
 	def Cerrar(self):
 		self.server.stop()
+
+
+if __name__ == '__main__':
+	pass

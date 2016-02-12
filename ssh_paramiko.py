@@ -1,9 +1,18 @@
-#!/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from .CheckPing import TestPing
+
+import os
+import sys
+
+import paramiko
+
+try:
+	from .check_ping import testPing
+except:
+	from check_ping import testPing
 
 
-def ConexionSSH(ssh_servidor='192.168.1.20', ssh_usuario='ubnt', ssh_clave='ubnt', comando='pwd', Debug='no' , ssh_puerto=22, sudo='no'):
+def conexionSSH(ssh_servidor='192.168.1.20', ssh_usuario='ubnt', ssh_clave='ubnt', comando='pwd', debug=False , ssh_puerto=22, sudo='no'):
 	"""
 	Funcion para establecer una conexion ssh, son necesarios los 4 primeros argumentos, depende de la libreria de cosecha propia TestPing
 	Los valores que tiene por defecto son: ssh_servidor='192.168.1.20', ssh_usuario='ubnt', ssh_clave='ubnt', comando='pwd', Debug='no' , ssh_puerto=22, sudo='no'
@@ -12,7 +21,7 @@ def ConexionSSH(ssh_servidor='192.168.1.20', ssh_usuario='ubnt', ssh_clave='ubnt
 	:param str ssh_usuario:  Usuario del servidor
 	:param str ssh_clave:    Contrasena del usuario cel servidor
 	:param str comando:      Comando a ejecutar en el servidor
-	:param str Debug:        Establecer modo depuracion para que imprima errores y cree un log
+	:param str debug:        Establecer modo depuracion para que imprima errores y cree un log
 	:param int ssh_puerto:   Puerto en el que escucha el servidor ssh
 	:param str sudo:         Para ejecutar comando como sudo
 	
@@ -21,10 +30,9 @@ def ConexionSSH(ssh_servidor='192.168.1.20', ssh_usuario='ubnt', ssh_clave='ubnt
 	:return str: con una excepcion en caso de error desconocido
 	"""
 	
-	response = TestPing(ssh_servidor)	#compruebo que el servidor esta online y en caso afirmativo me conecto
+	response = testPing(ssh_servidor)	#compruebo que el servidor esta online y en caso afirmativo me conecto
 	if response == 0:
 		try:
-			import os
 			#print 'plink'
 			comando = 'plink.exe -stricthostcheck save -ssh %s -l %s -pw %s "%s"'%(ssh_servidor, ssh_usuario, ssh_clave, comando).swd
 			#print comando
@@ -32,16 +40,14 @@ def ConexionSSH(ssh_servidor='192.168.1.20', ssh_usuario='ubnt', ssh_clave='ubnt
 
 		except:
 			#print 'paramiko'
-			import sys
 			sys.path.append('./')
-			import paramiko
-			if Debug != 'no':
+			if debug:
 				paramiko.util.log_to_file('paramiko.log')
 			client = paramiko.SSHClient()
 			#print '0'
 			try:
 				#print 'a'
-				client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+				client. set_missing_host_key_policy(paramiko.AutoAddPolicy())
 				client.connect(ssh_servidor, ssh_puerto, ssh_usuario, ssh_clave, allow_agent=False, look_for_keys=False, timeout=None)
 				try:
 					#print '1'
@@ -72,17 +78,13 @@ def ConexionSSH(ssh_servidor='192.168.1.20', ssh_usuario='ubnt', ssh_clave='ubnt
 					return '1'
 
 	else:
-		if Debug != 'no':
+		if debug:
 			print(ssh_servidor, 'is down!')
 		return '-1'
 
 
+if __name__ == '__main__':
+	salida = conexionSSH('192.168.1.20', 'ubnt', 'ubnt', 'pwd', debug=True)
+	print(salida)
+	print(len(salida))
 
-'''
-salida = ConexionSSH('192.168.1.20', 'ubnt', 'ubnt', 'pwd')
-print salida
-print len(salida)
-#print 1'''
-
-
-#print ConexionSSH.__doc__

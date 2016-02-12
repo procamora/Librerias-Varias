@@ -14,21 +14,21 @@ Conjunto de librerias que mas uso
 
 * **connect_sqlite.py**: jecuta una consulta a una base de datos sqlite.
 
-* **gui.py**: libreria easygui (externa)
+* **gui.py**: libreria easygui (externa).
 
-* **scp.py**: libreria para usar scp (externa)
+* **scp.py**: libreria para usar scp (externa).
 
 * **scp_paramiko.py**: Ejecuta una conexion scp para enviar un fichero.
 
-* **send_mail.py**: 
+* **send_mail.py**: Envia un correo conectandose a un servidor por smtp.
 
-* **send_mailer.py**: 
+* **send_mailer.py**: Envia un correo conectandose a un servidor remoto.
 
 * **sftp_paramiko.py**: Ejecuta una conexion sftp para enviar un fichero.
 
 * **ssh_forward.py**: Crea un tunel ssh para hacer un reenvio de puertos.
 
-* **ssh_paramiko.py**: Ejecuta una conexion ssh para ejecutar un comando
+* **ssh_paramiko.py**: Ejecuta una conexion ssh para ejecutar un comando.
 
 
 

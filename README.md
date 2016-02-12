@@ -6,29 +6,29 @@ Conjunto de librerias que mas uso
 ##Ficheros:
 
 
-* **check_ping.py**: 
+* **check_ping.py**: Comprueba si el equipo esta online o no.
 
-* **conexion_mysql.py**: 
+* **conexion_mysql.py**: Ejecuta una consulta a un servidor mysql con la libreria de MySQLdb.
 
-* **conexion_pymysql.py**: 
+* **conexion_pymysql.py**: Ejecuta una consulta a un servidor mysql con la libreria de pymysql.
 
-* **connect_sqlite.py**: 
+* **connect_sqlite.py**: jecuta una consulta a una base de datos sqlite.
 
-* **gui.py**: 
+* **gui.py**: libreria easygui (externa)
 
-* **scp.py**: 
+* **scp.py**: libreria para usar scp (externa)
 
-* **scp_paramiko.py**: 
+* **scp_paramiko.py**: Ejecuta una conexion scp para enviar un fichero.
 
 * **send_mail.py**: 
 
 * **send_mailer.py**: 
 
-* **sftp_paramiko.py**: 
+* **sftp_paramiko.py**: Ejecuta una conexion sftp para enviar un fichero.
 
-* **ssh_forward.py**: 
+* **ssh_forward.py**: Crea un tunel ssh para hacer un reenvio de puertos.
 
-* **ssh_paramiko.py**: 
+* **ssh_paramiko.py**: Ejecuta una conexion ssh para ejecutar un comando
 
 
 
